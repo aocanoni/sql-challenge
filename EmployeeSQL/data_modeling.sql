@@ -1,48 +1,38 @@
-DROP TABLE departments;
+# Physical
 
-CREATE TABLE departments (
-    dept_key SERIAL   NOT NULL,
-	dept_no VARCHAR   NOT NULL,
-    dept_name VARCHAR   NOT NULL,
-    PRIMARY KEY (dept_key)
-);
+Departments
+-
+dept_no VARCHAR(255)
+dept_name VARCHAR(255)
 
-CREATE TABLE dept_emp (
-    dept_emp_key INTEGER   NOT NULL,
-	emp_no INTEGER   NOT NULL,
-    PRIMARY KEY (dept_emp_key),
-    FOREIGN KEY (dept_no) REFERENCES departments (dept_no)
-);
+Department_Employees
+-
+emp_no INT PK
+dept_no VARCHAR(255) FK >- Departments.dept_no
 
-CREATE TABLE dept_manager (
-    dept_manager_key SERIAL   NOT NULL,
-    PRIMARY KEY (dept_manager_key),
-    FOREIGN KEY (dept_no) REFERENCES departments (dept_no),
-    FOREIGN KEY (emp_no) REFERENCES dept_emp (emp_no)
-);
+Department_Manager
+-
+dept_no VARCHAR(225) FK >- Departments.dept_no
+emp_no VARCHAR(225) FK >- Department_Employees.emp_no
 
-CREATE TABLE employees (
-    emp_key SERIAL   NOT NULL,
-    emp_title_id VARCHAR   NOT NULL,
-    birth_date VARCHAR   NOT NULL,
-    first_name VARCHAR   NOT NULL,
-    last_name VARCHAR   NOT NULL,
-    sex VARCHAR   NOT NULL,
-    hire_date VARCHAR   NOT NULL,
-    PRIMARY KEY (emp_key),
-    FOREIGN KEY (emp_no) REFERENCES dept_emp (emp_no)
-);
+Employees
+-
+emp_no VARCHAR(225) FK >- Department_Employees.emp_no
+emp_title_id VARCHAR(255)
+birth_date VARCHAR(255)
+first_name VARCHAR(255)
+last_name VARCHAR(255)
+sex VARCHAR(255)
+hire_date VARCHAR(255)
 
-CREATE TABLE salaries (
-    sal_key SERIAL   NOT NULL,
-    salary INTEGER   NOT NULL,
-    PRIMARY KEY (sal_key),
-    FOREIGN KEY (emp_no) REFERENCES dept_emp (emp_no)
-);
+Salaries
+-
+emp_no VARCHAR(255) FK >- Department_Employees.emp_no
+salary INT PK
 
-CREATE TABLE titles (
-    title_key SERIAL   NOT NULL,
-    title VARCHAR   NOT NULL,
-    PRIMARY KEY (title),
-    FOREIGN KEY (title_id) REFERENCES employees (emp_title_id)
-);
+
+Titles
+-
+title_id VARCHAR(255) FK >- Employees.emp_title_id
+title VARCHAR(255) PK
+
